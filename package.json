@@ -10,14 +10,22 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:yourbase.helloWorld"
+		"onCommand:workbench.action.tasks.runTask"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
+		"taskDefinitions": [
 			{
-				"command": "yourbase.helloWorld",
-				"title": "Hello World"
+				"type": "yb",
+				"required": [
+					"target"
+				],
+				"properties": {
+					"target": {
+						"type": "string",
+						"description": "The yb build target name"
+					}
+				}
 			}
 		]
 	},
@@ -41,5 +49,8 @@
 		"mocha": "^7.1.2",
 		"typescript": "^3.8.3",
 		"vscode-test": "^1.3.0"
+	},
+	"dependencies": {
+		"yaml": "^1.9.2"
 	}
 }
