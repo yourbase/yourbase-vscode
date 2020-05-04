@@ -120,7 +120,7 @@ async function getYbTasks(folder: vscode.WorkspaceFolder): Promise<vscode.Task[]
         target: target.name,
       } as YbTaskDefinition,
       folder,
-      'yb build ' + target.name,
+      target.name,
       'yb',
       taskExecution(target.name),
     );
@@ -129,9 +129,8 @@ async function getYbTasks(folder: vscode.WorkspaceFolder): Promise<vscode.Task[]
   });
 }
 
-function taskExecution(targetName: string): vscode.ShellExecution {
-  // TODO(light): Use process execution.
-  return new vscode.ShellExecution('yb build -- ' + targetName);
+function taskExecution(targetName: string): vscode.ProcessExecution {
+  return new vscode.ProcessExecution('yb', ['build', '--', targetName]);
 }
 
 /** YAML definition of a build target. */
