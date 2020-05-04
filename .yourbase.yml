@@ -1,0 +1,22 @@
+dependencies:
+  build:
+    - node:12.16.3
+
+build_targets:
+  - name: default
+    commands:
+      - npm install
+      - npm run compile
+
+  - name: test
+    commands:
+      - apt-get update
+      - apt-get install -y --no-install-recommends libgtk-3-0 xvfb libxtst6 libnss3 libxss1 libasound2 libsecret-1-0
+      - npm install
+      - npm run test-xvfb
+
+ci:
+  builds:
+    - name: test
+      build_target: test
+
