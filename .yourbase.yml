@@ -15,6 +15,11 @@ build_targets:
       - npm install
       - npm run test-xvfb
 
+  - name: package
+    commands:
+      - npm install -g vsce
+      - vsce package
+
 ci:
   builds:
     - name: test
