@@ -20,6 +20,11 @@ build_targets:
       - npm install
       - npx vsce package
 
+  - name: publish
+    commands:
+      - npm install
+      - bash publish.sh
+
 ci:
   builds:
     - name: test
