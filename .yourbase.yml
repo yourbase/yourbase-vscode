@@ -17,8 +17,8 @@ build_targets:
 
   - name: package
     commands:
-      - npm install -g vsce
-      - vsce package
+      - npm install
+      - npx vsce package
 
 ci:
   builds:
