@@ -28,6 +28,17 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "YourBase",
+			"properties": {
+				"yourbase.remoteBuild": {
+					"type": "boolean",
+					"default": false,
+					"description": "Run builds on the YourBase service. Must log in using `yb login` first.",
+					"scope": "resource"
+				}
+			}
+		},
 		"taskDefinitions": [
 			{
 				"type": "yb",

@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
 import * as yaml from 'yaml';
 
 export class YbTaskProvider implements vscode.Disposable, vscode.TaskProvider {
-  static YbType: string = 'yb';
+  static readonly YbType: 'yb' = 'yb';
   private workspaceStates: Map<string, WorkspaceState>;
   private folderChangeListener: vscode.Disposable;
 
@@ -49,14 +49,10 @@ export class YbTaskProvider implements vscode.Disposable, vscode.TaskProvider {
   }
 
   public resolveTask(task: vscode.Task): vscode.Task | undefined {
-    if (task.definition.type !== YbTaskProvider.YbType) {
+    if (!isYbTaskDefinition(task.definition) || typeof task.scope !== 'object') {
       return undefined;
     }
-    const defn = task.definition as Partial<YbTaskDefinition>;
-    if (!defn.target) {
-      return undefined;
-    }
-    task.execution = taskExecution(defn.target);
+    task.execution = taskExecution(task.definition, workspaceUsesRemoteBuilds(task.scope));
     return task;
   }
 
@@ -71,15 +67,21 @@ export class YbTaskProvider implements vscode.Disposable, vscode.TaskProvider {
 class WorkspaceState implements vscode.Disposable {
   private folder: vscode.WorkspaceFolder;
   private buildFileWatcher: vscode.FileSystemWatcher;
+  private configChanged: vscode.Disposable;
   private _tasksPromise: Thenable<vscode.Task[]> | undefined;
 
   constructor(folder: vscode.WorkspaceFolder) {
     this.folder = folder;
     const pattern = path.join(folder.uri.fsPath, '.yourbase.yml');
     this.buildFileWatcher = vscode.workspace.createFileSystemWatcher(pattern);
-    this.buildFileWatcher.onDidChange(() => this._tasksPromise = undefined);
-    this.buildFileWatcher.onDidCreate(() => this._tasksPromise = undefined);
-    this.buildFileWatcher.onDidDelete(() => this._tasksPromise = undefined);
+    this.buildFileWatcher.onDidChange(() => this.invalidateTasks());
+    this.buildFileWatcher.onDidCreate(() => this.invalidateTasks());
+    this.buildFileWatcher.onDidDelete(() => this.invalidateTasks());
+    this.configChanged = vscode.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration('yourbase', folder)) {
+        this.invalidateTasks();
+      }
+    });
   }
 
   get tasksPromise(): Thenable<vscode.Task[]> {
@@ -95,12 +97,17 @@ class WorkspaceState implements vscode.Disposable {
 
   dispose() {
     this.buildFileWatcher.dispose();
+    this.configChanged.dispose();
   }
 }
 
 interface YbTaskDefinition extends vscode.TaskDefinition {
   readonly type: 'yb';
   readonly target: string;
+}
+
+function isYbTaskDefinition(defn: any): defn is YbTaskDefinition {
+  return defn.type === YbTaskProvider.YbType && 'target' in defn;
 }
 
 async function getYbTasks(folder: vscode.WorkspaceFolder): Promise<vscode.Task[]> {
@@ -113,24 +120,36 @@ async function getYbTasks(folder: vscode.WorkspaceFolder): Promise<vscode.Task[]
   }
   const buildFileData = await readFile(buildFile);
   const parsed = yaml.parse(buildFileData);
+  const remote = workspaceUsesRemoteBuilds(folder);
   return parsed.build_targets.map((target: YbBuildTarget) => {
+    const definition: YbTaskDefinition = {
+      type: YbTaskProvider.YbType,
+      target: target.name,
+    };
     const task = new vscode.Task(
-      {
-        type: YbTaskProvider.YbType,
-        target: target.name,
-      } as YbTaskDefinition,
+      definition,
       folder,
       target.name,
       'yb',
-      taskExecution(target.name),
+      taskExecution(definition, remote),
     );
     task.group = vscode.TaskGroup.Build;
     return task;
   });
 }
 
-function taskExecution(targetName: string): vscode.ProcessExecution {
-  return new vscode.ProcessExecution('yb', ['build', '--', targetName]);
+/** VSCode configuration section for this extension. */
+const configSection = 'yourbase';
+
+/** Reports whether the given workspace folder builds its targets remotely. */
+function workspaceUsesRemoteBuilds(folder: vscode.WorkspaceFolder): boolean {
+  return vscode.workspace.getConfiguration(configSection, folder).get('remoteBuild', false);
+}
+
+/** Return the invocation for a task. */
+function taskExecution(definition: YbTaskDefinition, remote: boolean): vscode.ProcessExecution {
+  const subcmd = remote ? 'remotebuild' : 'build';
+  return new vscode.ProcessExecution('yb', [subcmd, '--', definition.target]);
 }
 
 /** YAML definition of a build target. */
