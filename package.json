@@ -4,9 +4,17 @@
 	"description": "YourBase build support",
 	"publisher": "yourbase",
 	"license": "Apache 2.0",
+	"icon": "icon.png",
+	"galleryBanner": {
+		"color": "#09297b",
+		"theme": "dark"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/yourbase/yourbase-vscode.git"
+	},
+	"bugs": {
+		"url": "https://github.com/yourbase/yourbase-vscode/issues"
 	},
 	"version": "0.0.1",
 	"engines": {
