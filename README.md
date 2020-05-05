@@ -6,7 +6,11 @@ This is the official VSCode extension for [YourBase][].
 
 ## Features
 
-- Task Detection
+- **Task Detection**: Workspaces with a [`.yourbase.yml` file][] will have
+  [Tasks][] appear for each build target.
+
+[`.yourbase.yml` file]: https://docs.yourbase.io/configuration/yourbase_yaml.html
+[Tasks]: https://code.visualstudio.com/docs/editor/tasks
 
 ## Requirements
 
@@ -17,11 +21,7 @@ details.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+* `yourbase.remoteBuild`: Run builds on the YourBase service. Must log in using
+  `yb login` first.
