@@ -29,4 +29,7 @@ ci:
   builds:
     - name: test
       build_target: test
+    - name: publish
+      build_target: publish
+      when: tagged IS true
 
