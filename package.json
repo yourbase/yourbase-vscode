@@ -1,6 +1,6 @@
 {
 	"name": "yourbase",
-	"version": "0.1.0-rc1",
+	"version": "0.1.0",
 	"displayName": "YourBase",
 	"description": "YourBase build support",
 	"publisher": "yourbase",
