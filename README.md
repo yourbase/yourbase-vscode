@@ -8,6 +8,8 @@ This is the official VSCode extension for [YourBase][].
 
 - **Task Detection**: Workspaces with a [`.yourbase.yml` file][] will have
   [Tasks][] appear for each build target.
+- **Jump to Build Configuration**: Quickly open your `.yourbase.yml` file from
+  the Command Palette or a hotkey.
 
 [`.yourbase.yml` file]: https://docs.yourbase.io/configuration/yourbase_yaml.html
 [Tasks]: https://code.visualstudio.com/docs/editor/tasks

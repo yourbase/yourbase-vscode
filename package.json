@@ -1,6 +1,6 @@
 {
 	"name": "yourbase",
-	"version": "0.1.0",
+	"version": "0.2.0-rc1",
 	"displayName": "YourBase",
 	"description": "YourBase build support",
 	"publisher": "yourbase",
@@ -18,13 +18,15 @@
 		"url": "https://github.com/yourbase/yourbase-vscode/issues"
 	},
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.45.0"
 	},
 	"categories": [
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:workbench.action.tasks.runTask"
+		"onCommand:workbench.action.tasks.runTask",
+		"onCommand:yourbase.openFileConfiguration",
+		"onCommand:yourbase.openWorkspaceConfiguration"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -38,6 +40,30 @@
 					"scope": "resource"
 				}
 			}
+		},
+		"commands": [
+			{
+				"command": "yourbase.openFileConfiguration",
+				"title": "YourBase: Open Build Configuration for Active File",
+				"enablement": "editorIsOpen"
+			},
+			{
+				"command": "yourbase.openWorkspaceConfiguration",
+				"title": "YourBase: Open Build Configuration for Workspace",
+				"enablement": "workbenchState != 'empty'"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "yourbase.openFileConfiguration",
+					"when": "editorIsOpen"
+				},
+				{
+					"command": "yourbase.openWorkspaceConfiguration",
+					"when": "workbenchState != 'empty'"
+				}
+			]
 		},
 		"taskDefinitions": [
 			{
@@ -67,7 +93,7 @@
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.2",
 		"@types/node": "^13.11.0",
-		"@types/vscode": "^1.44.0",
+		"@types/vscode": "^1.45.0",
 		"@typescript-eslint/eslint-plugin": "^2.30.0",
 		"@typescript-eslint/parser": "^2.30.0",
 		"eslint": "^6.8.0",
