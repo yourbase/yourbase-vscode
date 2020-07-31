@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as process from 'process';
 import * as vscode from 'vscode';
 import * as yaml from 'yaml';
 
@@ -146,10 +147,25 @@ function workspaceUsesRemoteBuilds(folder: vscode.WorkspaceFolder): boolean {
   return vscode.workspace.getConfiguration(configSection, folder).get('remoteBuild', false);
 }
 
+function useWsl(): boolean {
+  return process.platform === 'win32' &&
+    vscode.workspace.getConfiguration(configSection).get('useWSL', false);
+}
+
 /** Return the invocation for a task. */
 function taskExecution(definition: YbTaskDefinition, remote: boolean): vscode.ProcessExecution {
+  let process: string;
+  let args: string[];
+  if (!useWsl()) {
+    process = 'yb';
+    args = [];
+  } else {
+    process = 'wsl';
+    args = ['yb'];
+  }
   const subcmd = remote ? 'remotebuild' : 'build';
-  return new vscode.ProcessExecution('yb', [subcmd, '--', definition.target]);
+  args.push(subcmd, '--', definition.target);
+  return new vscode.ProcessExecution(process, args);
 }
 
 /** YAML definition of a build target. */

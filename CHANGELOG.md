@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/yourbase/yourbase-vscode/compare/v0.2.2...HEAD
 
+### Added
+
+- Added option to run `yb` under WSL ([#1][])
+
+[#1]: https://github.com/yourbase/yourbase-vscode/issues/1
+
 ### Fixed
 
 - Update elliptic to address [CVE-2020-13822][].

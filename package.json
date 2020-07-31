@@ -38,6 +38,12 @@
 					"default": false,
 					"description": "Run builds on the YourBase service. Must log in using `yb login` first.",
 					"scope": "resource"
+				},
+				"yourbase.useWSL": {
+					"type": "boolean",
+					"default": false,
+					"description": "Use WSL to start a build. Only used on Windows.",
+					"scope": "machine"
 				}
 			}
 		},
