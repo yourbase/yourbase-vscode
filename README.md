@@ -27,3 +27,4 @@ This extension contributes the following settings:
 
 * `yourbase.remoteBuild`: Run builds on the YourBase service. Must log in using
   `yb login` first.
+* `yourbase.useWSL`: Use WSL to start a build. Only used on Windows.
