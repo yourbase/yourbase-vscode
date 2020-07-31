@@ -19,7 +19,7 @@ This is the official VSCode extension for [YourBase][].
 The `yb` CLI must be installed. See the [`yb` installation][] instructions for
 details.
 
-[`yb` installation]: https://github.com/yourbase/yb/blob/master/README.md#how-to-use-it
+[`yb` installation]: https://github.com/yourbase/yb/blob/main/README.md#how-to-use-it
 
 ## Extension Settings
 
