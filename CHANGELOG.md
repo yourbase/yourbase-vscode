@@ -5,9 +5,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/yourbase/yourbase-vscode/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/yourbase/yourbase-vscode/compare/v0.2.2...HEAD
+
+### Fixed
+
+- Update elliptic to address [CVE-2020-13822][].
+
+[CVE-2020-13822]: https://github.com/advisories/GHSA-vh7m-p724-62c2
+
+## [0.2.2][]
+
+[0.2.2]: https://github.com/yourbase/yourbase-vscode/releases/tag/v0.2.2
+
+### Fixed
+
+- Update lodash to address [CVE-2020-8203][].
+
+[CVE-2020-8203]: https://github.com/advisories/GHSA-p6mc-m468-83gw
+
+## 0.2.1
+
+Skipped due to release infrastructure failure.
 
 ## [0.2.0][]
+
+### Added
 
 - Add commands to jump to the `.yourbase.yml` file for the workspace or
   active file.
