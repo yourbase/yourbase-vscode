@@ -4,7 +4,7 @@
 	"displayName": "YourBase",
 	"description": "YourBase build support",
 	"publisher": "yourbase",
-	"license": "Apache 2.0",
+	"license": "Apache-2.0",
 	"icon": "icon.png",
 	"galleryBanner": {
 		"color": "#09297b",
@@ -110,7 +110,7 @@
 		"typescript": "^3.8.3",
 		"vsce": "^1.75.0",
 		"vscode-test": "^1.3.0",
-		"webpack": "^4.43.0",
+		"webpack": "^4.44.1",
 		"webpack-cli": "^3.3.11"
 	},
 	"dependencies": {

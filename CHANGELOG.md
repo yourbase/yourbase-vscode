@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/yourbase/yourbase-vscode/compare/v0.3.0...HEAD
 
+### Fixed
+
+- Update webpack to address [CVE-2020-7660][]
+
+[CVE-2020-7660]: https://github.com/advisories/GHSA-hxcc-f52p-wc94
+
 ## [0.3.0][]
 
 [0.3.0]: https://github.com/yourbase/yourbase-vscode/releases/tag/v0.3.0
