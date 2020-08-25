@@ -5,7 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/yourbase/yourbase-vscode/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/yourbase/yourbase-vscode/compare/v0.3.1...HEAD
+
+## [0.3.1][]
+
+[0.3.1]: https://github.com/yourbase/yourbase-vscode/releases/tag/v0.3.1
 
 ### Fixed
 
