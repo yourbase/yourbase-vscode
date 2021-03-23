@@ -1,3 +1,4 @@
+.github/**
 .vscode/**
 .vscode-test/**
 node_modules
@@ -12,4 +13,4 @@ vsc-extension-quickstart.md
 publish.sh
 test-xvfb.sh
 .yourbase.yml
-webpack.config.js
+build.js
