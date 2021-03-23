@@ -9,9 +9,11 @@ build_targets:
       - npm run compile
 
   - name: test
+    container:
+      image: yourbase/yb_ubuntu:18.04
     commands:
       - apt-get update
-      - apt-get install -y --no-install-recommends libgtk-3-0 xvfb libxtst6 libnss3 libxss1 libasound2 libsecret-1-0
+      - apt-get install -y --no-install-recommends libgtk-3-0 xvfb libxtst6 libnss3 libxss1 libasound2 libsecret-1-0 libgbm1
       - npm install
       - npm run test-xvfb
 
